@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="person" nillable="true">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string" />
+                <xs:element name="age">
+					<xs:simpleType>
+						<xs:restriction base="xs:integer">
+							<xs:minInclusive value="1" />
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+                <xs:element name="height" type="xs:integer" nillable="true" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
