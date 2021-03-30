@@ -12,16 +12,14 @@ class XMLValidator:
     ----------
     xsd_path : str
         Path to the file containing the XSD schema.
-    valid_dtd : Optional[bool
-        Also validate the DTD (default) or not.
+    large_files : Optional[bool]
+        Set parser to handle large files.
     """
 
-    def __init__(self, xsd_path, valid_dtd=True, large_file=False):
+    def __init__(self, xsd_path, large_files=False):
         self._logger = logging.getLogger(__name__)
 
-        self._valid_dtd = valid_dtd
-        self._large_file = large_file
-
+        self._large_files = large_files
         self._schema = self._read_xsd(xsd_path)
 
     def validate(self, xml_paths):
@@ -42,7 +40,7 @@ class XMLValidator:
                 continue
 
             self._logger.info(f"PROCESSING:   [{xml_path}]")
-            parser = etree.XMLParser(huge_tree=self._large_file)
+            parser = etree.XMLParser(huge_tree=self._large_files)
             xml_doc = etree.parse(xml_path, parser=parser)
 
             if self._schema.validate(xml_doc):
@@ -52,7 +50,6 @@ class XMLValidator:
                     self._logger.error(f"ERROR:        [{xml_path} - L:{error.line}] - {error.message}")
 
             self._logger.info(f"FINISHED:     [{xml_path}]")
-
 
     def _read_xsd(self, xsd_path):
         """Reads and parses an XSD schema from the provided file path.
