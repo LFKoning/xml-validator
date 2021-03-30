@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="document">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="header" nillable="false">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="report" nillable="false">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="title" type="xs:string" nillable="false" />
+                                        <xs:element name="report_date" type="xs:date" nillable="false" />
+                                        <xs:element name="number_of_records" type="xs:integer" nillable="false" />
+                                    </xs:sequence>
+                               </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="body" nillable="false">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="data" nillable="false">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="record" minOccurs="1" maxOccurs="unbounded" nillable="false">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="datetime" type="xs:dateTime" nillable="false" />
+                                                    <xs:element name="product" type="xs:string" nillable="false" />
+                                                    <xs:element name="buyer" type="xs:string" nillable="false" />
+                                                    <xs:element name="seller" type="xs:string" nillable="false" />
+                                                    <xs:element name="price" type="xs:float" nillable="false" />
+                                                    <xs:element name="quantity" type="xs:integer" nillable="false" />
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

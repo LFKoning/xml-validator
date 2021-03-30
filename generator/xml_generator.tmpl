@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<document>
+	<header>
+		<report>
+			<title>XML dummy data</title>
+			<report_date>{{ current_date }}</report_date>
+			<number_of_records>{{ n_records }}</number_of_records>
+		</report>
+	</header>
+    <body>
+		<data>
+		{% for record in records %}
+			<record>
+				<datetime>{{ record["datetime"] }}</datetime>
+				<product>{{ record["product"] }}</product>
+				<buyer>{{ record["buyer"] }}</buyer>
+				<seller>{{ record["seller"] }}</seller>
+				<price>{{ record["price"] }}</price>
+				<quantity>{{ record["quantity"] }}</quantity>
+			</record>
+		{% endfor %}
+		</data>
+	</body>
+</document>

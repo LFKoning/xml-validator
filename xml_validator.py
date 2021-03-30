@@ -16,14 +16,22 @@ class XMLValidator:
         Also validate the DTD (default) or not.
     """
 
-    def __init__(self, xsd_path, valid_dtd=True):
+    def __init__(self, xsd_path, valid_dtd=True, large_file=False):
         self._logger = logging.getLogger(__name__)
+
         self._valid_dtd = valid_dtd
+        self._large_file = large_file
+
         self._schema = self._read_xsd(xsd_path)
 
     def validate(self, xml_paths):
         """
         Validate a set of XML files using the provided schema.
+
+        Parameters
+        ----------
+        xml_paths : List[str]
+            List of file paths to validate.
         """
 
         # TODO: parallelize with joblib if needed
@@ -34,7 +42,8 @@ class XMLValidator:
                 continue
 
             self._logger.info(f"PROCESSING:   [{xml_path}]")
-            xml_doc = etree.parse(xml_path)
+            parser = etree.XMLParser(huge_tree=self._large_file)
+            xml_doc = etree.parse(xml_path, parser=parser)
             valid_errors = []
             try:
                 self._schema.assertValid(xml_doc)
