@@ -44,17 +44,12 @@ class XMLValidator:
             self._logger.info(f"PROCESSING:   [{xml_path}]")
             parser = etree.XMLParser(huge_tree=self._large_file)
             xml_doc = etree.parse(xml_path, parser=parser)
-            valid_errors = []
-            try:
-                self._schema.assertValid(xml_doc)
-            except etree.DocumentInvalid:
-                valid_errors = [error for error in self._schema.error_log]
 
-            if valid_errors:
+            if self._schema.validate(xml_doc):
+                self._logger.info(f"SUCCESS:      [{xml_path}] Validation was succesful!")
+            else:
                 for error in self._schema.error_log:
                     self._logger.error(f"ERROR:        [{xml_path} - L:{error.line}] - {error.message}")
-            else:
-                self._logger.info(f"SUCCESS:      [{xml_path}] Validation was succesful!")
 
             self._logger.info(f"FINISHED:     [{xml_path}]")
 
